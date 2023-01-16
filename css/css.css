@@ -1,4 +1,144 @@
-:root {
+/*
+ * Dark Colors
+ * -------------------------------------------
+ */
+
+body.dark {
+    --ion-color-primary: #428cff;
+    --ion-color-primary-rgb: 66, 140, 255;
+    --ion-color-primary-contrast: #ffffff;
+    --ion-color-primary-contrast-rgb: 255, 255, 255;
+    --ion-color-primary-shade: #3a7be0;
+    --ion-color-primary-tint: #5598ff;
+    --ion-color-secondary: #50c8ff;
+    --ion-color-secondary-rgb: 80, 200, 255;
+    --ion-color-secondary-contrast: #ffffff;
+    --ion-color-secondary-contrast-rgb: 255, 255, 255;
+    --ion-color-secondary-shade: #46b0e0;
+    --ion-color-secondary-tint: #62ceff;
+    --ion-color-tertiary: #6a64ff;
+    --ion-color-tertiary-rgb: 106, 100, 255;
+    --ion-color-tertiary-contrast: #ffffff;
+    --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+    --ion-color-tertiary-shade: #5d58e0;
+    --ion-color-tertiary-tint: #7974ff;
+    --ion-color-success: #2fdf75;
+    --ion-color-success-rgb: 47, 223, 117;
+    --ion-color-success-contrast: #000000;
+    --ion-color-success-contrast-rgb: 0, 0, 0;
+    --ion-color-success-shade: #29c467;
+    --ion-color-success-tint: #44e283;
+    --ion-color-warning: #ffd534;
+    --ion-color-warning-rgb: 255, 213, 52;
+    --ion-color-warning-contrast: #000000;
+    --ion-color-warning-contrast-rgb: 0, 0, 0;
+    --ion-color-warning-shade: #e0bb2e;
+    --ion-color-warning-tint: #ffd948;
+    --ion-color-danger: #ff4961;
+    --ion-color-danger-rgb: 255, 73, 97;
+    --ion-color-danger-contrast: #ffffff;
+    --ion-color-danger-contrast-rgb: 255, 255, 255;
+    --ion-color-danger-shade: #e04055;
+    --ion-color-danger-tint: #ff5b71;
+    --ion-color-dark: #f4f5f8;
+    --ion-color-dark-rgb: 244, 245, 248;
+    --ion-color-dark-contrast: #000000;
+    --ion-color-dark-contrast-rgb: 0, 0, 0;
+    --ion-color-dark-shade: #d7d8da;
+    --ion-color-dark-tint: #f5f6f9;
+    --ion-color-medium: #989aa2;
+    --ion-color-medium-rgb: 152, 154, 162;
+    --ion-color-medium-contrast: #000000;
+    --ion-color-medium-contrast-rgb: 0, 0, 0;
+    --ion-color-medium-shade: #86888f;
+    --ion-color-medium-tint: #a2a4ab;
+    --ion-color-light: #222428;
+    --ion-color-light-rgb: 34, 36, 40;
+    --ion-color-light-contrast: #ffffff;
+    --ion-color-light-contrast-rgb: 255, 255, 255;
+    --ion-color-light-shade: #1e2023;
+    --ion-color-light-tint: #383a3e;
+}
+
+
+/*
+    * iOS Dark Theme
+    * -------------------------------------------
+    */
+
+.ios body.dark {
+    --ion-background-color: #000000;
+    --ion-background-color-rgb: 0, 0, 0;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+    --ion-color-step-50: #0d0d0d;
+    --ion-color-step-100: #1a1a1a;
+    --ion-color-step-150: #262626;
+    --ion-color-step-200: #333333;
+    --ion-color-step-250: #404040;
+    --ion-color-step-300: #4d4d4d;
+    --ion-color-step-350: #595959;
+    --ion-color-step-400: #666666;
+    --ion-color-step-450: #737373;
+    --ion-color-step-500: #808080;
+    --ion-color-step-550: #8c8c8c;
+    --ion-color-step-600: #999999;
+    --ion-color-step-650: #a6a6a6;
+    --ion-color-step-700: #b3b3b3;
+    --ion-color-step-750: #bfbfbf;
+    --ion-color-step-800: #cccccc;
+    --ion-color-step-850: #d9d9d9;
+    --ion-color-step-900: #e6e6e6;
+    --ion-color-step-950: #f2f2f2;
+    --ion-item-background: #000000;
+    --ion-card-background: #1c1c1d;
+}
+
+.ios body.dark ion-modal {
+    --ion-background-color: var(--ion-color-step-100);
+    --ion-toolbar-background: var(--ion-color-step-150);
+    --ion-toolbar-border-color: var(--ion-color-step-250);
+    --ion-item-background: var(--ion-color-step-150);
+}
+
+
+/*
+    * Material Design Dark Theme
+    * -------------------------------------------
+    */
+
+.md body.dark {
+    --ion-background-color: #121212;
+    --ion-background-color-rgb: 18, 18, 18;
+    --ion-text-color: #ffffff;
+    --ion-text-color-rgb: 255, 255, 255;
+    --ion-border-color: #222222;
+    --ion-color-step-50: #1e1e1e;
+    --ion-color-step-100: #2a2a2a;
+    --ion-color-step-150: #363636;
+    --ion-color-step-200: #414141;
+    --ion-color-step-250: #4d4d4d;
+    --ion-color-step-300: #595959;
+    --ion-color-step-350: #656565;
+    --ion-color-step-400: #717171;
+    --ion-color-step-450: #7d7d7d;
+    --ion-color-step-500: #898989;
+    --ion-color-step-550: #949494;
+    --ion-color-step-600: #a0a0a0;
+    --ion-color-step-650: #acacac;
+    --ion-color-step-700: #b8b8b8;
+    --ion-color-step-750: #c4c4c4;
+    --ion-color-step-800: #d0d0d0;
+    --ion-color-step-850: #dbdbdb;
+    --ion-color-step-900: #e7e7e7;
+    --ion-color-step-950: #f3f3f3;
+    --ion-item-background: #1e1e1e;
+    --ion-toolbar-background: #1f1f1f;
+    --ion-tab-bar-background: #1f1f1f;
+    --ion-card-background: #1e1e1e;
+}
+
+ :root {
     --ion-color-primary: #3880ff;
     --ion-color-primary-rgb: 56, 128, 255;
     --ion-color-primary-contrast: #ffffff;
@@ -137,6 +277,10 @@ body {
     }
 }
 
+.animacaoCarregamento {
+    animation: fadein 600ms;
+}
+
 .card {
     border-radius: 12px;
     padding: 2%;
@@ -156,7 +300,8 @@ body {
     outline: none;
     width: 100%;
     font-weight: 500;
-    text-align: center;
+    text-align: justify;
+    padding: 10px;
     font-size: 15px;
     margin-top: 1%;
     margin-bottom: 1%;
@@ -170,13 +315,16 @@ body {
 
 .input:hover {
     transition: transform 750ms;
+    border: solid 2px #bababa;
     will-change: transform;
     transform: translateY(-1px);
-    opacity: 0.9;
+    opacity: 0.8;
 }
 
-.input:active {
+.input:focus {
+    border: solid 2px #999999;
     transition: transform 750ms;
+    transform: translateY(-1px);
     will-change: transform;
 }
 
@@ -237,6 +385,12 @@ ul {
     text-align: center;
 }
 
+.centroHV {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
 .img-fluid {
     width: 100%;
     height: auto;
@@ -282,7 +436,7 @@ h6 {
 }
 
 p {
-    font-weight: 200;
+    font-weight: 500;
 }
 
 .ocultar {
@@ -342,7 +496,7 @@ ion-header {
     font-style: normal;
     font-weight: 700;
     color: #677483;
-    margin-top: 3vh;
+    /*margin-top: 3vh; */
 }
 
 ion-title {
@@ -407,7 +561,7 @@ ion-chip {
 
 .app {
     width: 100vw;
-    height: 90vh;
+    height: 100vh;
     position: fixed;
     left: -100vw;
     overflow-y: scroll;
@@ -456,6 +610,19 @@ ion-chip {
 
 .alturaDoBotao50px {
     height: 50px;
+}
+
+.containerCentro {
+    width: 100vw;
+    height: 100VH;
+    display: flex;
+}
+
+.containerCentroItem {
+    flex-direction: column;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .MenuAdmin {
@@ -1074,34 +1241,39 @@ label {
 
 .radio_item {
     display: none !important;
+    animation: fadein 600ms;
 }
 
 .label_item div {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
     background-color: #ffffff;
-    color: #ED211F;
+    color: #333333;
     width: 100%;
+    min-width: 100%;
     border-radius: 10px;
     box-shadow: 0 6px 24px rgba(0, 0, 0, .1);
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 .radio_item:checked+label div {
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    background-color: #ED211F;
+    background-color: #333333;
     color: #ffffff;
     width: 100%;
+    min-width: 100%;
     box-shadow: 0 6px 24px rgba(0, 0, 0, .1);
     transition: transform 750ms;
     will-change: transform;
     animation: fadein 600ms;
-    font-weight: 700;
+    font-weight: 500;
+    font-size: 20px;
 }
 
 label {
@@ -1731,18 +1903,6 @@ label {
     color: #fff;
 }
 
-.containerFaixaRelatorio {
-    text-align: left;
-    display: flex;
-}
-
-.itemImagemFaixaRelatorio {
-    flex-direction: column;
-    margin-top: 6%;
-}
-
-.ImagemFaixaRelatorio {}
-
 .containerNavPc {}
 
 @media (min-width:768px) {
@@ -2005,23 +2165,70 @@ label {
     animation: animacaoMenuItem 600ms;
 }
 
+.itemMenuPcAtivar {
+    transition: transform 750ms;
+    will-change: transform;
+    background-color: #000;
+    color: #fff;
+    border-radius: 11px;
+    height: 55px;
+    animation: animacaoMenuItem 600ms;
+}
+
+.inputFileContainer {
+    border: solid 2px #ececec;
+    border-radius: 11px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+input[type=file]::file-selector-button {
+    background-color: #F6F8FC;
+    color: #333333;
+    border: 0px;
+    border-right: 1px solid #e5e5e5;
+    padding: 10px 15px;
+    margin-right: 20px;
+    transition: .5s;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .1);
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+input[type=file]::file-selector-button:hover {
+    background-color: #F6F8FC;
+    color: #333333;
+    border: 0px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .1);
+    border-right: 1px solid #e5e5e5;
+}
+
 .itemMenuMobile {
-    border-bottom: solid 0.7px #bebebe;
-    font-weight: 600;
+    border-bottom: solid 0.1px #E8E7EC;
+    font-weight: 500;
     display: flex;
     justify-content: flex-start;
-    transition: transform 1s;
+    transition: transform 2s;
     will-change: transform;
+    font-size: 20px;
+    cursor: pointer;
 }
 
 .itemMenuMobile:active {
-    background-color: #E7E7E7;
-    scale: (4);
+    opacity: 0.8;
+}
+
+.itemMenuMobile:hover {
+    opacity: 0.9;
 }
 
 .textoItemMenuMobile {
-    padding: 10px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     color: #000000;
+    padding: 12px;
+    font-size: 19px;
 }
 
 .textoItemMenuMobile:hover {
@@ -2050,7 +2257,7 @@ label {
     margin-left: 115px;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 1027px) {
     .menuPc {
         display: none;
     }
@@ -2067,4 +2274,51 @@ label {
     .itemMenuPc {
         font-size: 12px;
     }
+}
+
+.icone19px {
+    font-size: 18px;
+}
+
+.containerFaixaRelatorio {
+    background-color: #000000;
+    color: #FFFFFF;
+    padding: 10px;
+    font-size: 25px;
+    text-align: left;
+    display: flex;
+}
+
+.itemImagemFaixaRelatorio {
+    flex-direction: column;
+    margin-top: 1%;
+}
+
+.ImagemFaixaRelatorio {
+    height: 62px;
+    width: 60px;
+    top: 5%;
+}
+
+.itemFaixaRelatorio {
+    flex-direction: column;
+    margin-top: 1%;
+    text-transform: uppercase;
+}
+
+.descricaoItemRelatorio {
+    line-height: 10px;
+}
+
+.botaoSlide {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+
+.inputCodigoVerificacao {
+    height: 75px;
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
 }
