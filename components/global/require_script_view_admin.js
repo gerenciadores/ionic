@@ -1,0 +1,1 @@
+requireItem('index.js');

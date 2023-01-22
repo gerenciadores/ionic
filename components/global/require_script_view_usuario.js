@@ -1,0 +1,1 @@
+requireItem('/views/usuario/' + urlViewAtualUsuario + '/index.js');
