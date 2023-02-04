@@ -10,13 +10,13 @@ const exibirCarregamento = () => {
 const verificarModoDarkOuLight = () => {
     let modoTema = localStorage.getItem("modoTema");
     if (modoTema == 'dark') {
-        document.body.className += 'dark';
+        document.body.className += ' dark';
     } else {
         document.body.className += '';
     }
 }
 
 window.onload = (e) => {
-    exibirCarregamento();
+    //exibirCarregamento();
     verificarModoDarkOuLight();
 }

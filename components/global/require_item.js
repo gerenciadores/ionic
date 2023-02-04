@@ -1,5 +1,6 @@
-let urlViewAtual = window.location.pathname.split('/')[5];
-let urlTipoView = window.location.pathname.split('/')[4];
+let urlNomeArquivo = window.location.pathname.split('/')[4];
+let urlViewAtual = window.location.pathname.split('/')[3];
+let urlTipoView = window.location.pathname.split('/')[2];
 
 const requireItem = (fileLocal) => {
     var corescript = document.createElement('script');
@@ -36,19 +37,14 @@ const requireItemIcon = (fileLocal) => {
     parent.appendChild(corescript);
     void(0);
 }
-requireItemCss("../../../assets/@ionic/core/css/ionic.bundle.css?versao=1.0.9");
-requireItemCss("https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css");
-requireItemCss("../../../assets/css/css.css?versao=1.0.9");
-requireItemIcon("../../../assets/img/logo.ico?versao=1.0.9");
 
-requireItem("../../../assets/libs/Chart.min.js");
-requireItemModule("../../../assets/@ionic/core/dist/ionic/ionic.esm.js");
-requireItem("../../../assets/@ionic/core/dist/ionic/ionic.js");
+if (urlNomeArquivo != 'declaracao.html') {
+    requireItemCss("../../../assets/@ionic/core/css/ionic.bundle.css?versao=1.0.9");
+    requireItemCss("https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css");
+    requireItemCss("../../../assets/css/css.css?versao=1.0.19");
+    requireItemIcon("../../../assets/img/logo.ico?versao=1.0.9");
 
-
-/*requireItem("");
-requireItem("");
-requireItem("");
-requireItem("");
-requireItem("");
-requireItem(""); */
+    requireItem("../../../assets/libs/Chart.min.js");
+    requireItemModule("../../../assets/@ionic/core/dist/ionic/ionic.esm.js");
+    requireItem("../../../assets/@ionic/core/dist/ionic/ionic.js");
+}

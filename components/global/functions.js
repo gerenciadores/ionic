@@ -86,6 +86,7 @@ const CopiarTexto = async(classeDoInput) => {
     navigator.clipboard.writeText(textoCopiar).then(async() => {
         const toast = await document.createElement('ion-toast');
         toast.color = 'success';
+        toast.mode = 'ios';
         toast.icon = 'checkmark-outline';
         toast.message = 'Texto copiado com sucesso!';
         toast.duration = 60000;
@@ -171,6 +172,29 @@ const endConsultaPorId = async(url, id) => {
     return await axios.get(url + id).then(res => res.data.data).catch(error => '0');
 }
 
+const toastNotificacao = (cor, icone, texto, tempo, textoBotao) => {
+
+    const toast = document.createElement('ion-toast');
+
+    toast.color = cor;
+    toast.icon = icone;
+    toast.message = texto;
+    toast.mode = 'ios';
+    cssClass: 'custom-toast',
+        toast.duration = tempo;
+    toast.buttons = [{
+        text: textoBotao,
+        handler: () => {
+            return;
+        }
+    }];
+
+    document.body.appendChild(toast);
+
+    toast.present();
+
+}
+
 const carregarGraficos = (url, tituloSelecao, colunaSeleciona, colunaValores, tipoDeChart, idDoElemento) => {
     let apiUrl = url;
     let months = []
@@ -187,6 +211,7 @@ const carregarGraficos = (url, tituloSelecao, colunaSeleciona, colunaValores, ti
     }).catch(err => {
         console.log(err);
     });
+
 }
 
 const adicionarDadosAoGrafico = (title, Data, bgcolor, bordercolor) => {
@@ -203,34 +228,38 @@ const adicionarDadosAoGrafico = (title, Data, bgcolor, bordercolor) => {
 
 const lerDadosDoGrafico = (dataset, Labels, type, id) => {
     const ctx = document.getElementById(id).getContext('2d');
+
+    let option = {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+
+        },
+        'onClick': (event, item) => {
+            let tituloGrafico = item[0]._chart.chart.config.data.labels[item[0]._index];
+            let valorGrafico = item[0]._chart.chart.config.data.datasets[0].data[item[0]._index];
+            let tituloValorGrafico = item[0]._chart.chart.config.data.datasets[0].label;
+            toastNotificacao('light', 'bar-chart-outline', valorGrafico + ' referente a ' + tituloValorGrafico + ' em ' + tituloGrafico, 5000, 'Ok');
+        }
+    };
+
     const myChart = new Chart(ctx, {
         type: type,
         data: {
             labels: Labels,
             datasets: dataset
         },
+        options: option
     });
-}
-
-const toastNotificacao = (cor, icone, texto, tempo, textoBotao) => {
-
-    const toast = document.createElement('ion-toast');
-
-    toast.color = cor;
-    toast.icon = icone;
-    toast.message = texto;
-    toast.duration = tempo;
-    toast.buttons = [{
-        text: textoBotao,
-        handler: () => {
-            return;
-        }
-    }];
-
-    document.body.appendChild(toast);
-
-    toast.present();
-
 }
 
 const modalApagarInformacoes = async(id) => {
@@ -250,9 +279,9 @@ const modalApagarInformacoes = async(id) => {
                     },
                 }).then(async(response) => {
                     if (response.data == '1') {
-                        await toastNotificacao('success', 'alert-outline', 'Informações excluídas com sucesso.', 2000, 'Ok');
+                        await toastNotificacao('success', 'alert-outline', 'Informaões excluídas com sucesso.', 2000, 'Ok');
                     } else {
-                        await toastNotificacao('danger', 'alert-outline', 'Você não tem permissão para excluír esse item.', 2000, 'Ok');
+                        await toastNotificacao('danger', 'alert-outline', 'Você não tem permissão para exclur esse item.', 2000, 'Ok');
                     }
                 });
             },
@@ -278,7 +307,7 @@ const modalApagarInformacoesIndexedDb = async(id, nomeDb) => {
 
     const actionSheet = document.createElement('ion-action-sheet');
 
-    actionSheet.header = 'Deseja realmente excluír as informações?';
+    actionSheet.header = 'Deseja realmente excluír as informaes?';
     actionSheet.cssClass = 'my-custom-class';
     actionSheet.buttons = [{
             text: 'Sim',
@@ -346,17 +375,36 @@ const lerTexto = (textoParaLer) => {
 }
 
 const alterarModoTela = () => {
+
     let headerCrudCount = getElementsTagName('header-crud');
     let headerNoCrudCount = getElementsTagName('header-no-crud');
+
+    modoTema = localStorage.getItem("modoTema");
+
     if (modoTema == 'dark') {
         localStorage.setItem("modoTema", "0");
         Cookies.set('modoTema', '0', { expires: 365 });
+        document.body.classList.replace("dark", "light");
+        if (document.querySelector('#headerNoCrud') != null) {
+            document.querySelector('#headerNoCrud div div div div .botaoTema i').classList.replace("ri-moon-line", "ri-sun-line");
+        } else {
+            document.querySelector('#headerCrud div div div div .botaoTema i').classList.replace("ri-moon-line", "ri-sun-line");
+        }
         location.reload();
     } else {
         localStorage.setItem("modoTema", "dark");
         Cookies.set('modoTema', 'dark', { expires: 365 });
+        document.body.classList.add('dark');
+        if (document.querySelector('#headerNoCrud') != null) {
+            document.querySelector('#headerNoCrud div div div div .botaoTema i').classList.replace("ri-sun-line", "ri-moon-line");
+        } else {
+            document.querySelector('#headerCrud div div div div .botaoTema i').classList.replace("ri-sun-line", "ri-moon-line");
+        }
         location.reload();
     }
+    
+    carregarModoTela();
+    
 }
 
 let modal = document.querySelector('ion-modal');
@@ -371,7 +419,7 @@ const modalVideo = (video) => {
 }
 
 const messageSuccessCadastro = () => {
-    toastNotificacao('success', 'alert-outline', 'Informações inseridas com sucesso.', 2000, 'Ok');
+    toastNotificacao('success', 'alert-outline', 'Informaões inseridas com sucesso.', 2000, 'Ok');
 }
 
 const messageErroCadastro = () => {
@@ -383,7 +431,7 @@ const messageSuccessAtualizar = () => {
 }
 
 const messageSuccessApagar = () => {
-    toastNotificacao('success', 'alert-outline', 'Informações excluídas com sucesso.', 2000, 'Ok');
+    toastNotificacao('success', 'alert-outline', 'Informaes excludas com sucesso.', 2000, 'Ok');
 }
 
 const limitacaoNumeroSem9 = (element) => {
@@ -406,3 +454,83 @@ const limitarInput = (element, tamanho) => {
         element.value = element.value.substr(0, maximo);
     }
 }
+
+const maisQnt = (input) => {
+    let valorAtual = getElementClass(input).value;
+    let novoValor = valorAtual - (-1);
+    getElementClass(input).value = novoValor;
+}
+
+const menosQnt = (input) => {
+    let valorAtual = getElementClass(input).value;
+    if (valorAtual > 0) {
+        let novoValor = valorAtual - 1;
+        getElementClass(input).value = novoValor;
+    }
+}
+
+const animacaoLoad = async(texto, tempo) => {
+    const loading1s = document.createElement('ion-loading');
+    loading1s.cssClass = 'animacaoLoad';
+    loading1s.message = texto;
+    loading1s.duration = tempo;
+    document.body.appendChild(loading1s);
+    await loading1s.present();
+}
+
+const abrirModal = (id) => {
+    getElementClass(id).isOpen = true;
+}
+
+const fecharModal = (id) => {
+    getElementClass(id).isOpen = false;
+}
+
+const ocultarElemento = (elemento) => {
+    getElementClass(elemento).style.display = 'none';
+}
+
+const mostrarElemento = (elemento) => {
+    getElementClass(elemento).style.display = 'block';
+}
+
+const aumentarFonte = (elemento) => {
+
+    let min = 8;
+    let max = 70;
+
+    let body = getElementClass(elemento),
+
+        tamanhoAtualDaFonte = parseFloat(window.getComputedStyle(body, null).fontSize);
+
+    if (tamanhoAtualDaFonte < max) {
+        body.style.fontSize = ++tamanhoAtualDaFonte + 'px';
+    }
+
+}
+
+const diminuirFonte = (elemento) => {
+
+    let min = 8;
+    let max = 70;
+
+    let body = getElementClass(elemento),
+        tamanhoAtualDaFonte = parseFloat(window.getComputedStyle(body, null).fontSize);
+
+    if (tamanhoAtualDaFonte > min) {
+        body.style.fontSize = --tamanhoAtualDaFonte + 'px';
+    }
+
+}
+
+const retonarDoisDecimais = (valor) => {
+    let valorRetorno = parseFloat(valor).toFixed(2);
+    return valorRetorno.replace('.', ",");
+}
+
+carregarLoad = () => {
+    toastNotificacao('light', 'checkmark-outline', 'Informações carregadas', 500, 'Ok');
+    //animacaoLoad('Carregando...', 100);
+}
+
+setTimeout(carregarLoad, 1000);

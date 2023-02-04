@@ -1,5 +1,5 @@
 Vue.component('header-no-crud', {
-    props: ['titulo', 'subtitulo'],
+    props: ['titulo', 'subtitulo', 'modo_tela'],
     template: `<div>
 <div class="ion-margin">
 
@@ -7,7 +7,7 @@ Vue.component('header-no-crud', {
 
         <div class="col-sm-10">
 
-            <ion-button color="light" id="popoverMenu">
+            <ion-button color="light" id="popoverMenu" onclick="abrirMenuPrincipal()">
                 <i class="ri-menu-line icone19px"></i>
             </ion-button>
 
@@ -23,14 +23,19 @@ Vue.component('header-no-crud', {
                 <i class="ri-arrow-left-s-line icone19px"></i>
             </ion-button>
 
-            <ion-button color="light" onclick="alterarModoTela()">
+            <ion-button class="botaoTema" v-if="modo_tela == '' || modo_tela == null" color="light" onclick="alterarModoTela()">
                 <i v-if="modoTema == 'dark'" class="ri-moon-line icone19px"></i>
                 <i v-if="modoTema != 'dark'" class="ri-sun-line icone19px"></i>
+            </ion-button>
+            
+             <ion-button class="botaoTema" v-else color="light" onclick="alterarModoTela()">
+                <i v-if="modo_tela == 'dark'" class="ri-moon-line icone19px"></i>
+                <i v-if="modo_tela != 'dark'" class="ri-sun-line icone19px"></i>
             </ion-button>
 
             <h1 class="tituloPagina">{{ titulo }}</h1>
             <ion-text>
-                <p class="subTituloPagina" onclick="lerTexto(this.textContent)">{{ subtitulo }}</p>
+                <p class="subTituloPagina">{{ subtitulo }}</p>
             </ion-text>
 
         </div>
@@ -63,11 +68,11 @@ Vue.component('header-no-crud', {
                 this.menus = response.data;
             });
         },
-        
+
         cancel() {
             this.$refs.modal.$el.dismiss(null, 'cancel');
         },
-        
+
     },
     created: function() {
         this.fetchData();

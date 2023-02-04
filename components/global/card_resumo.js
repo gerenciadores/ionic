@@ -5,7 +5,7 @@ Vue.component('card-resumo', {
     <ion-item :href="hrefcard">
         <ion-label class="ion-margin">
             <h1 style="font-size: 25px; font-weight: 900; margin-top: 0;">{{ valor }}</h1>
-            <h6 style="font-size: 20px; font-weight: 300; margin-top: 5px;">{{ nome }}</h6>
+            <h6 style="font-size: 20px; font-weight: 400; margin-top: 5px;">{{ nome }}</h6>
             <ion-fab vertical="top" horizontal="end" slot="fixed">
                 <ion-button :color="cor" :href="href">
                     <i :class="icone"></i>
@@ -24,7 +24,7 @@ Vue.component('card-resumo-lite', {
     <div class="ion-margin" :href="hrefcard">
         <ion-label class="ion-margin">
             <h1 style="font-size: 25px; font-weight: 900; margin-top: 0;">{{ valor }}</h1>
-            <h6 style="font-size: 20px; font-weight: 300; margin-top: 25px;">{{ nome }}</h6>
+            <h6 style="font-size: 20px; font-weight: 500; margin-top: 25px;">{{ nome }}</h6>
             <ion-fab vertical="top" horizontal="end" slot="fixed">
                 <ion-button :color="cor" :href="href">
                     <i :class="icone"></i>

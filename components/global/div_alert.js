@@ -4,7 +4,7 @@ Vue.component('div-alert', {
     <div>
         <ion-card :color="cor">
             <div class="ion-margin">
-                <h6>{{ dsc }}</h6>
+                <p>{{ dsc }}</p>
             </div>
         </ion-card>
 </div>

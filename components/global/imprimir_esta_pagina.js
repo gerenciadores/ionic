@@ -1,1 +1,7 @@
-window.onload = () => { window.print(); }
+const imprimirPagina = () => {
+    window.print();
+}
+
+setTimeout(() => {
+  window.print();
+}, 1000)
