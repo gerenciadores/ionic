@@ -1,0 +1,83 @@
+[{
+        "link": "redirectPage('../inicio/index.html')",
+        "icone": "ri-home-line",
+        "rota": "inicio",
+        "tutorial": "",
+        "nome": "Início"
+    },
+    {
+        "link": "redirectPage('../mensagens/index.html')",
+        "icone": "ri-book-open-line",
+        "rota": "mensagens",
+        "tutorial": "",
+        "nome": "Mensagens"
+    },
+    {
+        "link": "redirectPage('../pedidos/index.html')",
+        "icone": "ri-ticket-line",
+        "rota": "pedidos",
+        "tutorial": "",
+        "nome": "Pedidos"
+    },
+    {
+        "link": "redirectPage('../produtos/index.html')",
+        "icone": "ri-store-line",
+        "rota": "produtos",
+        "tutorial": "",
+        "nome": "Produtos"
+    },
+    {
+        "link": "redirectPage('../categorias/index.html')",
+        "icone": "ri-list-check-2",
+        "rota": "categorias",
+        "tutorial": "",
+        "nome": "Categorias"
+    },
+    {
+        "link": "redirectPage('../enquetes/index.html')",
+        "icone": "ri-question-line",
+        "rota": "enquetes",
+        "tutorial": "",
+        "nome": "Enquetes"
+    },
+    {
+        "link": "redirectPage('../usuarios/index.html')",
+        "icone": "ri-group-line",
+        "rota": "usuarios",
+        "tutorial": "",
+        "nome": "Usuários"
+    },
+    {
+        "link": "redirectPage('../clientes/index.html')",
+        "icone": "ri-map-pin-user-line",
+        "rota": "clientes",
+        "tutorial": "",
+        "nome": "Clientes"
+    },
+    {
+        "link": "redirectPage('../noticias/index.html')",
+        "icone": "ri-newspaper-line",
+        "rota": "noticias",
+        "tutorial": "",
+        "nome": "Informativos"
+    },
+    {
+        "link": "modalRelatorios()",
+        "icone": "ri-file-chart-2-line",
+        "rota": "relatorio",
+        "tutorial": "",
+        "nome": "Relatórios"
+    },
+    {
+        "link": "modalAjuda()",
+        "icone": "ri-play-line",
+        "rota": "ajuda",
+        "nome": "Ajuda"
+    },
+    {
+        "link": "redirectPage('../sair')",
+        "icone": "ri-logout-box-line",
+        "rota": "sair",
+        "nome": "Sair"
+    }
+]
