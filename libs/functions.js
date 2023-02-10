@@ -4,22 +4,8 @@ const carregarConstantesAplicacao = () => {
 
 carregarConstantesAplicacao();
 
-const requireItem = (fileLocal) => {
-    var corescript = document.createElement('script');
-    corescript.type = 'text/javascript';
-    corescript.src = fileLocal;
-    var parent = document.getElementsByTagName('body').item(0);
-    parent.appendChild(corescript);
-    void(0);
-}
-
-const requireItemModule = (fileLocal) => {
-    var corescript = document.createElement('script');
-    corescript.type = 'module';
-    corescript.src = fileLocal;
-    var parent = document.getElementsByTagName('body').item(0);
-    parent.appendChild(corescript);
-    void(0);
+const returnRotaAtiva = (element) => {
+    return "redirectPage('../" + element + "')";
 }
 
 const getElementClassValue = (element) => {
@@ -32,6 +18,14 @@ const getElementIdValue = (element) => {
 
 const getElementClass = (element) => {
     return document.querySelector('.' + element);
+}
+
+const getElementsTagName = (element) => {
+    return document.querySelectorAll(element);
+}
+
+const getElementTagName = (element) => {
+    return document.querySelector(element);
 }
 
 const getElementId = (element) => {
@@ -47,30 +41,6 @@ const returnButtonConfirmar = () => {
     getElementClass('mensagemSucesso').color = "dark";
 }
 
-const messageSuccessCadastro = () => {
-    setTimeoutFuncoes(returnButtonConfirmar, 3000);
-    getElementClass('mensagemSucesso').innerHTML = 'InformaÃ§Ãµes inseridas  <ion-icon name="checkmark-done-outline" slot="end"></ion-icon>';
-    getElementClass('mensagemSucesso').color = "success";
-}
-
-const messageErroCadastro = () => {
-    setTimeoutFuncoes(returnButtonConfirmar, 3000);
-    getElementClass('mensagemSucesso').innerHTML = 'Ocorreu algum erro <ion-icon name="alert-outline" slot="end"></ion-icon>';
-    getElementClass('mensagemSucesso').color = "danger";
-}
-
-const messageSuccessAtualizar = () => {
-    setTimeoutFuncoes(returnButtonConfirmar, 3000);
-    getElementClass('mensagemSucesso').innerHTML = 'InformaÃ§Ãµes atualizadas <ion-icon name="checkmark-done-outline" slot="end"></ion-icon>';
-    getElementClass('mensagemSucesso').color = "success";
-}
-
-const messageSuccessApagar = () => {
-    setTimeoutFuncoes(returnButtonConfirmar, 3000);
-    getElementClass('mensagemSucesso').innerHTML = 'InformaÃ§Ãµes excluÃ­das <ion-icon name="checkmark-done-outline" slot="end"></ion-icon>';
-    getElementClass('mensagemSucesso').color = "success";
-}
-
 const redirectPage = (rota) => {
     window.location.href = rota;
 }
@@ -79,9 +49,9 @@ const redirectPageBlank = (rota) => {
     window.open(rota, '_blank');
 }
 
-async function buscarEndereco() {
+async function buscarEndereco(campoCep) {
 
-    let cep = document.querySelector(".cep").value;
+    let cep = document.querySelector("." + campoCep).value;
 
     await axios.get('https://viacep.com.br/ws/' + cep + '/json/', {
 
@@ -116,6 +86,7 @@ const CopiarTexto = async(classeDoInput) => {
     navigator.clipboard.writeText(textoCopiar).then(async() => {
         const toast = await document.createElement('ion-toast');
         toast.color = 'success';
+        toast.mode = 'ios';
         toast.icon = 'checkmark-outline';
         toast.message = 'Texto copiado com sucesso!';
         toast.duration = 60000;
@@ -134,7 +105,7 @@ const CopiarTexto = async(classeDoInput) => {
         const toast = await document.createElement('ion-toast');
         toast.color = 'danger';
         toast.icon = 'alert-outline';
-        toast.message = 'NÃ£o foi possÃ­vel copiar o texto do elemento selecionado!';
+        toast.message = 'Não foi possível copiar o texto do elemento selecionado!';
         toast.duration = 60000;
         toast.buttons = [{
             text: 'Ok',
@@ -153,28 +124,44 @@ const CopiarTexto = async(classeDoInput) => {
 
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
-
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-
-        fileReader.onload = () => {
-            resolve(fileReader.result);
-        };
-
-        fileReader.onerror = (error) => {
-            reject(error);
-        };
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
     });
 };
+
+function testarCargaImagem(id) {
+    let file = document.getElementById(id).files[0];
+    getBase64(file).then(
+        (response) => {
+            data
+        }
+    );
+}
 
 // Upload de imagens base64 para carregamento offline.
 
 const carregarImagem = async(id) => {
-    const file = document.getElementById(id).files[0];
-    const base64 = await convertBase64(file);
-    document.getElementById('imgItem' + id).src = base64;
-    document.getElementById('codigoItem' + id).value = base64;
+    let file = document.getElementById(id).files[0];
+    convertBase64(file).then(
+        (response) => {
+            let convertido;
+            if (response.includes("data:image/jpeg")) {
+                convertido = response.replace('data:image/jpeg', 'data:image/png');
+            }
+            if (convertido != null) {
+                document.getElementById('imgItem' + id).src = convertido;
+                document.querySelector('.' + id).value = convertido;
+            } else {
+                document.getElementById('imgItem' + id).src = response;
+                document.querySelector('.' + id).value = response;
+            }
+
+        }
+    );
 }
+
 
 const consultaPorId = async(url, id) => {
     const data = (await endConsultaPorId(url, id));
@@ -183,6 +170,29 @@ const consultaPorId = async(url, id) => {
 
 const endConsultaPorId = async(url, id) => {
     return await axios.get(url + id).then(res => res.data.data).catch(error => '0');
+}
+
+const toastNotificacao = (cor, icone, texto, tempo, textoBotao) => {
+
+    const toast = document.createElement('ion-toast');
+
+    toast.color = cor;
+    toast.icon = icone;
+    toast.message = texto;
+    toast.mode = 'ios';
+    cssClass: 'custom-toast',
+        toast.duration = tempo;
+    toast.buttons = [{
+        text: textoBotao,
+        handler: () => {
+            return;
+        }
+    }];
+
+    document.body.appendChild(toast);
+
+    toast.present();
+
 }
 
 const carregarGraficos = (url, tituloSelecao, colunaSeleciona, colunaValores, tipoDeChart, idDoElemento) => {
@@ -201,6 +211,7 @@ const carregarGraficos = (url, tituloSelecao, colunaSeleciona, colunaValores, ti
     }).catch(err => {
         console.log(err);
     });
+
 }
 
 const adicionarDadosAoGrafico = (title, Data, bgcolor, bordercolor) => {
@@ -217,33 +228,112 @@ const adicionarDadosAoGrafico = (title, Data, bgcolor, bordercolor) => {
 
 const lerDadosDoGrafico = (dataset, Labels, type, id) => {
     const ctx = document.getElementById(id).getContext('2d');
+
+    let option = {
+        responsive: true,
+        scales: {
+            xAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }],
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+
+        },
+        'onClick': (event, item) => {
+            let tituloGrafico = item[0]._chart.chart.config.data.labels[item[0]._index];
+            let valorGrafico = item[0]._chart.chart.config.data.datasets[0].data[item[0]._index];
+            let tituloValorGrafico = item[0]._chart.chart.config.data.datasets[0].label;
+            toastNotificacao('light', 'bar-chart-outline', valorGrafico + ' referente a ' + tituloValorGrafico + ' em ' + tituloGrafico, 5000, 'Ok');
+        }
+    };
+
     const myChart = new Chart(ctx, {
         type: type,
         data: {
             labels: Labels,
             datasets: dataset
         },
+        options: option
     });
 }
 
-const toastNotificacao = (cor, icone, texto, tempo, textoBotao) => {
+const modalApagarInformacoes = async(id) => {
+    const actionSheet = document.createElement('ion-action-sheet');
 
-    const toast = document.createElement('ion-toast');
+    actionSheet.header = 'Deseja realmente excluír as informações?';
+    actionSheet.cssClass = 'my-custom-class';
+    actionSheet.buttons = [{
+            text: 'Sim',
+            icon: 'checkmark-outline',
+            handler: () => {
+                axios.delete(urlBaseApagar + '&id=' + id, {
+                    id: id,
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    },
+                }).then(async(response) => {
+                    if (response.data == '1') {
+                        await toastNotificacao('success', 'alert-outline', 'Informaões excluídas com sucesso.', 2000, 'Ok');
+                    } else {
+                        await toastNotificacao('danger', 'alert-outline', 'Você não tem permissão para exclur esse item.', 2000, 'Ok');
+                    }
+                });
+            },
+        },
 
-    toast.color = cor;
-    toast.icon = icone;
-    toast.message = texto;
-    toast.duration = tempo;
-    toast.buttons = [{
-        text: textoBotao,
-        handler: () => {
-            return;
+        {
+            text: 'Não',
+            icon: 'close',
+            role: 'cancel',
+            handler: () => {
+                return;
+            }
         }
-    }];
 
-    document.body.appendChild(toast);
+    ];
 
-    toast.present();
+    document.body.appendChild(actionSheet);
+    await actionSheet.present();
+    const { role, data } = await actionSheet.onDidDismiss();
+}
+
+const modalApagarInformacoesIndexedDb = async(id, nomeDb) => {
+
+    const actionSheet = document.createElement('ion-action-sheet');
+
+    actionSheet.header = 'Deseja realmente excluír as informaes?';
+    actionSheet.cssClass = 'my-custom-class';
+    actionSheet.buttons = [{
+            text: 'Sim',
+            icon: 'checkmark',
+            handler: () => {
+                nomeDb.transaction('rw', nomeDb.tabelaDados, () => {
+                    nomeDb.tabelaDados.delete(Number(id));
+                }).catch((err) => {
+                    console.error(err.stack || err);
+                });
+            },
+        },
+
+        {
+            text: 'Não',
+            icon: 'close',
+            role: 'cancel',
+            handler: () => {
+                return;
+            }
+        }
+
+    ];
+
+    document.body.appendChild(actionSheet);
+    await actionSheet.present();
+    const { role, data } = await actionSheet.onDidDismiss();
 
 }
 
@@ -282,3 +372,180 @@ const lerTexto = (textoParaLer) => {
         let voicess = window.speechSynthesis.getVoices();
     });
 }
+
+const alterarModoTela = () => {
+
+    let headerCrudCount = getElementsTagName('header-crud');
+    let headerNoCrudCount = getElementsTagName('header-no-crud');
+
+    modoTema = localStorage.getItem("modoTema");
+
+    if (modoTema == 'dark') {
+        localStorage.setItem("modoTema", "0");
+        Cookies.set('modoTema', '0', { expires: 365 });
+        document.body.classList.replace("dark", "light");
+        if (document.querySelector('#headerNoCrud') != null) {
+            document.querySelector('#headerNoCrud div div div div .botaoTema i').classList.replace("ri-moon-line", "ri-sun-line");
+        } else {
+            document.querySelector('#headerCrud div div div div .botaoTema i').classList.replace("ri-moon-line", "ri-sun-line");
+        }
+        location.reload();
+    } else {
+        localStorage.setItem("modoTema", "dark");
+        Cookies.set('modoTema', 'dark', { expires: 365 });
+        document.body.classList.add('dark');
+        if (document.querySelector('#headerNoCrud') != null) {
+            document.querySelector('#headerNoCrud div div div div .botaoTema i').classList.replace("ri-sun-line", "ri-moon-line");
+        } else {
+            document.querySelector('#headerCrud div div div div .botaoTema i').classList.replace("ri-sun-line", "ri-moon-line");
+        }
+        location.reload();
+    }
+
+    carregarModoTela();
+
+}
+
+let modal = document.querySelector('ion-modal');
+
+const cancel = () => {
+    modal.dismiss(null, 'cancel');
+}
+
+const modalVideo = (video) => {
+    localStorage.setItem("videoTutorial", video);
+    redirectPage("../tutorial/index.html");
+}
+
+const messageSuccessCadastro = () => {
+    toastNotificacao('success', 'alert-outline', 'Informaes inseridas com sucesso.', 2000, 'Ok');
+}
+
+const messageErroCadastro = () => {
+    toastNotificacao('danger', 'alert-outline', 'Ocorreu algum erro ao inserir as informaçes.', 2000, 'Ok');
+}
+
+const messageSuccessAtualizar = () => {
+    toastNotificacao('success', 'alert-outline', 'Informações atualizadas com sucesso.', 2000, 'Ok');
+}
+
+const messageSuccessApagar = () => {
+    toastNotificacao('success', 'alert-outline', 'Informaes excludas com sucesso.', 2000, 'Ok');
+}
+
+const limitacaoNumeroSem9 = (element) => {
+    let maximo = 8;
+    if (element.value.length > maximo) {
+        element.value = element.value.substr(0, maximo);
+    }
+}
+
+const limitacaoNumeroDDD = (element) => {
+    let maximo = 2;
+    if (element.value.length > maximo) {
+        element.value = element.value.substr(0, maximo);
+    }
+}
+
+const limitarInput = (element, tamanho) => {
+    let maximo = tamanho;
+    if (element.value.length > maximo) {
+        element.value = element.value.substr(0, maximo);
+    }
+}
+
+const maisQnt = (input) => {
+    let valorAtual = getElementClass(input).value;
+    let novoValor = valorAtual - (-1);
+    getElementClass(input).value = novoValor;
+}
+
+const menosQnt = (input) => {
+    let valorAtual = getElementClass(input).value;
+    if (valorAtual > 0) {
+        let novoValor = valorAtual - 1;
+        getElementClass(input).value = novoValor;
+    }
+}
+
+const animacaoLoad = async(texto, tempo) => {
+    const loading1s = document.createElement('ion-loading');
+    loading1s.cssClass = 'animacaoLoad';
+    loading1s.message = texto;
+    loading1s.duration = tempo;
+    document.body.appendChild(loading1s);
+    await loading1s.present();
+}
+
+const abrirModal = (id) => {
+    getElementClass(id).isOpen = true;
+}
+
+const fecharModal = (id) => {
+    getElementClass(id).isOpen = false;
+}
+
+const ocultarElemento = (elemento) => {
+    getElementClass(elemento).style.display = 'none';
+}
+
+const mostrarElemento = (elemento) => {
+    getElementClass(elemento).style.display = 'block';
+}
+
+const aumentarFonte = (elemento) => {
+
+    let min = 8;
+    let max = 70;
+
+    let body = getElementClass(elemento),
+
+        tamanhoAtualDaFonte = parseFloat(window.getComputedStyle(body, null).fontSize);
+
+    if (tamanhoAtualDaFonte < max) {
+        body.style.fontSize = ++tamanhoAtualDaFonte + 'px';
+    }
+
+}
+
+const diminuirFonte = (elemento) => {
+
+    let min = 8;
+    let max = 70;
+
+    let body = getElementClass(elemento),
+        tamanhoAtualDaFonte = parseFloat(window.getComputedStyle(body, null).fontSize);
+
+    if (tamanhoAtualDaFonte > min) {
+        body.style.fontSize = --tamanhoAtualDaFonte + 'px';
+    }
+
+}
+
+const retonarDoisDecimais = (valor) => {
+    let valorRetorno = parseFloat(valor).toFixed(2);
+    return valorRetorno.replace('.', ",");
+}
+
+const showActionSheet = (header, options) => {
+    let actionSheet = document.createElement("ion-action-sheet");
+    actionSheet.header = header;
+    actionSheet.buttons = options.map(option => {
+        return {
+            text: option.text,
+            role: option.role,
+            handler: () => {
+                option.handler();
+            }
+        };
+    })
+
+    document.body.appendChild(actionSheet);
+    actionSheet.present();
+}
+
+carregarLoad = () => {
+    toastNotificacao('light', 'checkmark-outline', 'Informaçes carregadas', 500, 'Ok');
+}
+
+setTimeout(carregarLoad, 1000);
