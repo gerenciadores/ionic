@@ -2,6 +2,55 @@
  * Dark Colors
  * -------------------------------------------
  */
+ 
+/* 
+Corrigir print
+*/
+
+@media print {
+    ion-header,
+    ion-backdrop,
+    .tabbar,
+    ion-footer,
+    ion-content::part(background) {
+        display: block !important;
+        overflow: hidden;
+        overflow-y: hidden;
+    }
+    ion-nav {
+        contain: none;
+        overflow: visible;
+    }
+    ion-split-pane {
+        display: block;
+    }
+    .scroll-content,
+    ion-modal,
+    ion-modal .modal-wrapper,
+    ion-modal .ion-page,
+    ion-modal .ion-page>ion-content,
+    .ion-page,
+    .ion-page>ion-content,
+    ion-split-pane,
+    ion-tab,
+    ion-tabs,
+    ion-router-outlet,
+    .app-root,
+    ion-content::part(scroll),
+    body {
+        contain: none;
+        display: block !important;
+        position: relative !important;
+        height: auto;
+        overflow: hidden;
+        margin: 0;
+        box-shadow: none;
+    }
+    .fixed-content,
+    .scroll-content {
+        margin-top: 0 !important;
+    }
+}
 
 body.dark {
     --ion-color-primary: #428cff;
