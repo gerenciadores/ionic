@@ -1,5 +1,7 @@
 const carregarConstantesAplicacao = () => {
-    document.querySelector('title').textContent = nomeDoAplicativo;
+    if(nomeDoAplicativo != null){
+       document.querySelector('title').textContent = nomeDoAplicativo;
+    } 
 }
 
 carregarConstantesAplicacao();
