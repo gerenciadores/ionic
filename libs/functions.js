@@ -73,49 +73,6 @@ const sleep = (milliseconds) => {
     } while (currentDate - date < milliseconds);
 }
 
-const CopiarTexto = async(classeDoInput) => {
-
-    let textoCopiar = getElementClassValue(classeDoInput);
-
-    navigator.clipboard.writeText(textoCopiar).then(async() => {
-        const toast = await document.createElement('ion-toast');
-        toast.color = 'success';
-        toast.mode = 'ios';
-        toast.icon = 'checkmark-outline';
-        toast.message = 'Texto copiado com sucesso!';
-        toast.duration = 60000;
-        toast.buttons = [{
-            text: 'Ok',
-            role: 'cancel',
-            handler: () => {
-                console.log('Alerta fechado');
-            }
-        }];
-
-        document.body.appendChild(toast);
-        await toast.present();
-
-    }, async(err) => {
-        const toast = await document.createElement('ion-toast');
-        toast.color = 'danger';
-        toast.icon = 'alert-outline';
-        toast.message = 'Não foi possível copiar o texto do elemento selecionado!';
-        toast.duration = 60000;
-        toast.buttons = [{
-            text: 'Ok',
-            role: 'cancel',
-            handler: () => {
-                console.log('Alerta fechado');
-            }
-        }];
-
-        document.body.appendChild(toast);
-        await toast.present();
-
-    });
-
-}
-
 const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
@@ -186,6 +143,30 @@ const toastNotificacao = (cor, icone, texto, tempo, textoBotao) => {
     document.body.appendChild(toast);
 
     toast.present();
+
+}
+
+const CopiarTextoElemento = async(texto) => {
+
+    navigator.clipboard.writeText(texto).then(async() => {
+        toastNotificacao = ('success', 'checkmark-outline', 'Texto copiado com sucesso!', 60000, 'Ok');
+    }, async(err) => {
+        toastNotificacao = ('danger', 'alert-outline', 'Não foi possível copiar o texto do elemento selecionado!', 60000, 'Ok');
+    });
+
+}
+
+
+const CopiarTexto = async(classeDoInput) => {
+
+    let textoCopiar = getElementClassValue(classeDoInput);
+
+    navigator.clipboard.writeText(textoCopiar).then(async() => {
+        toastNotificacao = ('success', 'checkmark-outline', 'Texto copiado com sucesso!', 60000, 'Ok');
+
+    }, async(err) => {
+        toastNotificacao = ('danger', 'alert-outline', 'Não foi possível copiar o texto do elemento selecionado!', 60000, 'Ok');
+    });
 
 }
 
