@@ -149,9 +149,9 @@ const toastNotificacao = (cor, icone, texto, tempo, textoBotao) => {
 const CopiarTextoElemento = async(texto) => {
 
     navigator.clipboard.writeText(texto).then(async() => {
-        toastNotificacao = ('success', 'checkmark-outline', 'Texto copiado com sucesso!', 60000, 'Ok');
+        toastNotificacao('success', 'checkmark-outline', 'Texto copiado com sucesso!', 60000, 'Ok');
     }, async(err) => {
-        toastNotificacao = ('danger', 'alert-outline', 'Não foi possível copiar o texto do elemento selecionado!', 60000, 'Ok');
+        toastNotificacao('danger', 'alert-outline', 'Não foi possível copiar o texto do elemento selecionado!', 60000, 'Ok');
     });
 
 }
@@ -162,10 +162,10 @@ const CopiarTexto = async(classeDoInput) => {
     let textoCopiar = getElementClassValue(classeDoInput);
 
     navigator.clipboard.writeText(textoCopiar).then(async() => {
-        toastNotificacao = ('success', 'checkmark-outline', 'Texto copiado com sucesso!', 60000, 'Ok');
+        toastNotificacao('success', 'checkmark-outline', 'Texto copiado com sucesso!', 60000, 'Ok');
 
     }, async(err) => {
-        toastNotificacao = ('danger', 'alert-outline', 'Não foi possível copiar o texto do elemento selecionado!', 60000, 'Ok');
+        toastNotificacao('danger', 'alert-outline', 'Não foi possível copiar o texto do elemento selecionado!', 60000, 'Ok');
     });
 
 }
