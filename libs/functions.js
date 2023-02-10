@@ -1,11 +1,3 @@
-const carregarConstantesAplicacao = () => {
-    if(nomeDoAplicativo != null){
-       document.querySelector('title').textContent = nomeDoAplicativo;
-    } 
-}
-
-carregarConstantesAplicacao();
-
 const returnRotaAtiva = (element) => {
     return "redirectPage('../" + element + "')";
 }
